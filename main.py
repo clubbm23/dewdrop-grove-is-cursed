@@ -78,14 +78,14 @@ def main():
         "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_7.png"
     ]
     idle_image_paths = [
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_0.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_1.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_2.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_3.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_4.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_5.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_6.png",
-        "./Images/Female/Character 1/Clothes 1/Character1F_1_idle_7.png"
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_0.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_1.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_2.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_3.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_4.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_5.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_6.png",
+        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_7.png"
     ]
     player = Player(walking_image_paths, idle_image_paths, PLAYER_START_X, PLAYER_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT)
     player.set_trees(orchard.trees)
