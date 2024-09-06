@@ -2,17 +2,17 @@ import pygame
 from inventory import Inventory
 
 class Player:
-    def __init__(self, walking_image_paths, idle_image_paths, x, y, background_width, background_height):
-        self.walking_images = [pygame.image.load(path) for path in walking_image_paths]
-        self.idle_images = [pygame.image.load(path) for path in idle_image_paths]
+    def __init__(self, walking_images, idle_images, x, y, background_width, background_height):
+        self.walking_images = walking_images  # These are now images, not paths
+        self.idle_images = idle_images  # These are now images, not paths
         self.x = x
         self.y = y
-        self.width = self.walking_images[0].get_width()
+        self.width = self.walking_images[0].get_width()  # Get width from the actual image
         self.height = self.walking_images[0].get_height()
 
-        # New rectangle size (slightly smaller than before for better proximity to trees)
-        self.rect_width = 30  # Adjust as needed
-        self.rect_height = 30  # Adjust as needed
+        # Adjust the rect size based on the scaled image
+        self.rect_width = self.width
+        self.rect_height = self.height
 
         # Centering the rectangle on the image
         self.image = self.idle_images[0]
@@ -23,12 +23,12 @@ class Player:
             self.rect_height
         )
         self.speed = 2
-        self.direction = 'RIGHT'  # 'RIGHT' or 'LEFT'
+        self.direction = 'RIGHT'
         self.current_frame = 0
         self.animation_speed = 0.1
         self.idle_animation_timer = 0
         self.is_moving = False
-        self.collision_margin = 0.9  # Margin to allow closer proximity
+        self.collision_margin = 0.9
 
         self.inventory = Inventory()
 

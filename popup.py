@@ -21,6 +21,7 @@ class Popup:
             sprite_rect.height
         )
 
+        pygame.font.init()
         self.font = pygame.font.Font('./Fonts/Stepalange-x3BLm.otf', 24)
 
     def draw(self, screen):
@@ -34,9 +35,9 @@ class Popup:
 
     def draw_flower_images(self, screen, player_inventory):
         # Set up the coordinates for item images
-        start_x = self.sprite_rect.x - 317  # Starting position inside the popup
+        start_x = self.sprite_rect.x - 318  # Starting position inside the popup
         start_y = self.sprite_rect.y - 268
-        gap_x = 12  # Horizontal gap between items
+        gap_x = 14  # Horizontal gap between items
 
         # Load flower images
         silent_petal_image = pygame.image.load("./Images/Decorations(main)/Decorations.png").subsurface(pygame.Rect(130, 60, 16, 16))  # Placeholder image path
@@ -49,16 +50,16 @@ class Popup:
         silent_petal_count = player_inventory.get_item_count('Silent Petal')
         if silent_petal_count > 0:
             screen.blit(silent_petal_image, (start_x, start_y))
-            count_surface = font.render(str(silent_petal_count), True, (255, 255, 255))
-            screen.blit(count_surface, (start_x + 6, start_y - 2))  # Draw count next to the item image
+            count_surface = font.render(str(silent_petal_count), True, (0, 0, 0))
+            screen.blit(count_surface, (start_x + 10, start_y + 5))  # Draw count next to the item image
             start_x += gap_x  # Move x position for the next item
 
         # Draw Fire Blush if present in inventory
         fire_blush_count = player_inventory.get_item_count('Fire Blush')
         if fire_blush_count > 0:
             screen.blit(fire_blush_image, (start_x, start_y))
-            count_surface = font.render(str(fire_blush_count), True, (255, 255, 255))
-            screen.blit(count_surface, (start_x + 6, start_y - 2))  # Draw count next to the item image
+            count_surface = font.render(str(fire_blush_count), True, (0, 0, 0))
+            screen.blit(count_surface, (start_x + 13, start_y + 5))  # Draw count next to the item image
 
 
     def set_visible(self, visible):

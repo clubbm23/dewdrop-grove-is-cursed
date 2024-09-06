@@ -11,10 +11,11 @@ from camera import Camera
 from popup import Popup
 
 # Initialize pygame
-pygame.init()
+# Define the global scaling factor
+SCALE_FACTOR = 1.25
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = int(800 * SCALE_FACTOR)
+SCREEN_HEIGHT = int(600 * SCALE_FACTOR)
 WHITE = (255, 255, 255)
 MIN_TREE_DISTANCE = 2
 MIN_FLOWER_DISTANCE = 1
@@ -25,13 +26,55 @@ PLAYER_START_Y = SCREEN_HEIGHT // 2
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Dewdrop Grove Cursed")
 
-# Load the background image
+# Load the background image and scale it
 background_image = pygame.image.load("./Images/green.jpg")
+background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# Create the inventory pop-up
+# Create the inventory pop-up and scale it
 sprite_sheet_path = "./Images/InventorySlots.png"
 inventory_popup_rect = pygame.Rect(450, 110, 100, 80)
+inventory_popup_rect.width = int(inventory_popup_rect.width * SCALE_FACTOR)
+inventory_popup_rect.height = int(inventory_popup_rect.height * SCALE_FACTOR)
 inventory_popup = Popup(sprite_sheet_path, inventory_popup_rect, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+# PLAYER
+walking_image_paths = [
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_0.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_1.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_2.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_3.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_4.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_5.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_6.png",
+    "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_7.png"
+    ]
+idle_image_paths = [
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_0.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_1.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_2.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_3.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_4.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_5.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_6.png",
+    "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_7.png"
+    ]
+    
+# Load and scale walking images
+walking_images = []
+for path in walking_image_paths:
+    image = pygame.image.load(path)
+    original_size = image.get_size()
+    new_size = (int(original_size[0] * SCALE_FACTOR), int(original_size[1] * SCALE_FACTOR))
+    walking_images.append(pygame.transform.scale(image, new_size))
+
+# Load and scale idle images
+idle_images = []
+for path in idle_image_paths:
+    image = pygame.image.load(path)
+    original_size = image.get_size()
+    new_size = (int(original_size[0] * SCALE_FACTOR), int(original_size[1] * SCALE_FACTOR))
+    idle_images.append(pygame.transform.scale(image, new_size))
+
 
 def main():
     orchard = Orchard(screen, background_image)
@@ -40,6 +83,13 @@ def main():
     # TREES
     little_tree_rect = pygame.Rect(158, 106, 33, 33)
     big_tree_rect = pygame.Rect(208, 85, 50, 60)
+
+    # Scale the tree rectangles
+    little_tree_rect.width = int(little_tree_rect.width * SCALE_FACTOR)
+    little_tree_rect.height = int(little_tree_rect.height * SCALE_FACTOR)
+    big_tree_rect.width = int(big_tree_rect.width * SCALE_FACTOR)
+    big_tree_rect.height = int(big_tree_rect.height * SCALE_FACTOR)
+
     little_tree_count = 0
     big_tree_count = 0
 
@@ -56,6 +106,12 @@ def main():
     # FLOWERS
     blue_flower_rect = pygame.Rect(130, 60, 16, 16)
     pink_flower_rect = pygame.Rect(80, 60, 16, 16)
+    # Scale the tree rectangles
+    blue_flower_rect.width = int(blue_flower_rect.width * SCALE_FACTOR)
+    blue_flower_rect.height = int(blue_flower_rect.height * SCALE_FACTOR)
+    pink_flower_rect.width = int(pink_flower_rect.width * SCALE_FACTOR)
+    pink_flower_rect.height = int(pink_flower_rect.height * SCALE_FACTOR)
+
     blue_flower_count = 0
     pink_flower_count = 0
 
@@ -69,28 +125,8 @@ def main():
         if orchard.place_flower(pinkFlower):
             pink_flower_count += 1
 
-    # PLAYER
-    walking_image_paths = [
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_0.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_1.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_2.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_3.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_4.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_5.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_6.png",
-        "./Images/Female/Character 1/Clothes 1/walk/Character1F_1_walk_7.png"
-    ]
-    idle_image_paths = [
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_0.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_1.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_2.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_3.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_4.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_5.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_6.png",
-        "./Images/Female/Character 1/Clothes 1/idle/Character1F_1_idle_7.png"
-    ]
-    player = Player(walking_image_paths, idle_image_paths, PLAYER_START_X, PLAYER_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT)
+    
+    player = Player(walking_images, idle_images, PLAYER_START_X, PLAYER_START_Y, SCREEN_WIDTH, SCREEN_HEIGHT)
     player.set_trees(orchard.trees)
 
     clock = pygame.time.Clock()
