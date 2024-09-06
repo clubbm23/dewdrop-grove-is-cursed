@@ -69,8 +69,8 @@ class Orchard:
         
         # Define flower spawn ranges
         flower_spawn_ranges = {
-            'blue': (0, 2080, 0, 1500),
-            'pink': (0, 2000, 0, 1500)
+            'blue': (0, 1000, 0, 1000),
+            'pink': (0, 1000, 0, 1000)
         }
 
         # Get the color of the removed flower
@@ -79,7 +79,7 @@ class Orchard:
         elif flower_to_remove.sprite_rect == pink_flower_rect:
             color = 'pink'
         else:
-            return  # Exit if the flower color is not recognized
+            return  
 
         # Get spawn ranges based on flower color
         x_min, x_max, y_min, y_max = flower_spawn_ranges[color]

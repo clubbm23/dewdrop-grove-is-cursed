@@ -32,27 +32,34 @@ class Popup:
             text_rect = text_surface.get_rect(center=(popup_position[0] + self.sprite_rect.width // 2, popup_position[1] - 20))  # Position above popup
             screen.blit(text_surface, text_rect)
 
-    def draw_flower_images(self, screen):
-        start_x = self.sprite_rect.x + 10
-        start_y = self.sprite_rect.y + 10
+    def draw_flower_images(self, screen, player_inventory):
+        # Set up the coordinates for item images
+        start_x = self.sprite_rect.x - 317  # Starting position inside the popup
+        start_y = self.sprite_rect.y - 268
+        gap_x = 12  # Horizontal gap between items
 
-        for flower, image in self.flower_images.items():
-            count = self.flower_counts.get(flower, 0)
-            if count > 0:
-                # Draw the flower image
-                screen.blit(image, (start_x, start_y))
+        # Load flower images
+        silent_petal_image = pygame.image.load("./Images/Decorations(main)/Decorations.png").subsurface(pygame.Rect(130, 60, 16, 16))  # Placeholder image path
+        fire_blush_image = pygame.image.load("./Images/Decorations(main)/Decorations.png").subsurface(pygame.Rect(80, 60, 16, 16))  # Placeholder image path
 
-                # Draw the count text
-                font = pygame.font.Font('./Fonts/Stepalange-x3BLm.otf', 24)
-                count_text = font.render(str(count), True, (0, 0, 0))
-                screen.blit(count_text, (start_x + image.get_width() - count_text.get_width(), start_y + image.get_height() - count_text.get_height()))
+        # Define font for displaying item counts
+        font = pygame.font.Font('./Fonts/Stepalange-x3BLm.otf', 8)
 
-                # Update starting position for the next flower
-                start_x += image.get_width() + 10
+        # Draw Silent Petal if present in inventory
+        silent_petal_count = player_inventory.get_item_count('Silent Petal')
+        if silent_petal_count > 0:
+            screen.blit(silent_petal_image, (start_x, start_y))
+            count_surface = font.render(str(silent_petal_count), True, (255, 255, 255))
+            screen.blit(count_surface, (start_x + 6, start_y - 2))  # Draw count next to the item image
+            start_x += gap_x  # Move x position for the next item
 
-    def update_flower_counts(self, inventory):
-        """Update flower counts based on the inventory."""
-        self.flower_counts = {flower: inventory.get_items().get(flower, 0) for flower in self.flower_images.keys()}
+        # Draw Fire Blush if present in inventory
+        fire_blush_count = player_inventory.get_item_count('Fire Blush')
+        if fire_blush_count > 0:
+            screen.blit(fire_blush_image, (start_x, start_y))
+            count_surface = font.render(str(fire_blush_count), True, (255, 255, 255))
+            screen.blit(count_surface, (start_x + 6, start_y - 2))  # Draw count next to the item image
+
 
     def set_visible(self, visible):
         self.visible = visible

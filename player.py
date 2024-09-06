@@ -106,3 +106,6 @@ class Player:
 
     def list_inventory(self):
         return self.inventory.get_items() if self.inventory else {}
+    
+    def get_rect(self):
+        return self.rect

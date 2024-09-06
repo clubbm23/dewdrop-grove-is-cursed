@@ -40,3 +40,7 @@ class Inventory:
     def has_item(self, item_name, quantity=1):
         """Check if the inventory has enough of a specific item."""
         return self.items.get(item_name, 0) >= quantity
+    
+    def get_item_count(self, item_name):
+        """Returns the count of the specified item, or 0 if not present."""
+        return self.items.get(item_name, 0)
